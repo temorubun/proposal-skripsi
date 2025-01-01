@@ -1,0 +1,97 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laporan Systemd Service</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            background-color: #1e1e2f;
+            color: #e1e1e6;
+        }
+        h1 {
+            text-align: center;
+            color: #e1e1e6;
+        }
+        h2 {
+            color: #72bcd4;
+            border-bottom: 1px solid #72bcd4;
+            padding-bottom: 5px;
+        }
+        pre {
+            background: #2e2e40;
+            padding: 10px;
+            border: 1px solid #444;
+            border-radius: 5px;
+            overflow-x: auto;
+            color: #72bcd4;
+        }
+        code {
+            background: #2e2e40;
+            padding: 2px 4px;
+            border-radius: 4px;
+            color: #72bcd4;
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+        hr {
+            border: none;
+            height: 1px;
+            background: #444;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Laporan Implementasi dan Konfigurasi Systemd Service</h1>
+    <div class="section">
+        <h2>Langkah 1: Membuat File Service</h2>
+        <p><strong>1. Lokasi File Service</strong></p>
+        <p>File service dibuat di direktori <code>/etc/systemd/system/</code> dengan nama <code>app.service</code>. Perintah yang digunakan:</p>
+        <pre><code>sudo nano /etc/systemd/system/app.service</code></pre>
+        <p><strong>2. Konfigurasi File Service</strong></p>
+        <p>Isi file service diatur sebagai berikut, disesuaikan dengan path proyek aplikasi Python:</p>
+        <pre><code>[Unit]
+Description=My Python App
+After=network.target
+
+[Service]
+User=root
+WorkingDirectory=/home/ai
+ExecStart=/home/ai/venv/bin/python /home/ai/app.py
+Restart=always
+Environment=PYTHONUNBUFFERED=1
+
+[Install]
+WantedBy=multi-user.target</code></pre>
+    </div>
+    <div class="section">
+        <h2>Langkah 2: Reload dan Aktifkan Service</h2>
+        <p><strong>1. Reload Konfigurasi Systemd</strong></p>
+        <pre><code>sudo systemctl daemon-reload</code></pre>
+        <p><strong>2. Aktifkan Service Saat Boot</strong></p>
+        <pre><code>sudo systemctl enable app.service</code></pre>
+        <p><strong>3. Memulai Service</strong></p>
+        <pre><code>sudo systemctl start app.service</code></pre>
+        <p><strong>4. Memeriksa Status Service</strong></p>
+        <pre><code>sudo systemctl status app.service</code></pre>
+    </div>
+    <div class="section">
+        <h2>Hasil Akhir</h2>
+        <ul>
+            <li>File service telah dibuat dengan konfigurasi yang sesuai.</li>
+            <li>Service berhasil diaktifkan dan berjalan otomatis saat sistem dihidupkan.</li>
+            <li>Debugging dilakukan jika terdapat error, dan solusi diterapkan berdasarkan log systemd.</li>
+        </ul>
+    </div>
+    <div class="section">
+        <h2>Kesimpulan</h2>
+        <p>Implementasi systemd service untuk aplikasi Python telah selesai dilakukan, dan service berhasil berjalan secara otomatis serta dapat diandalkan untuk memastikan aplikasi selalu aktif di server.</p>
+    </div>
+</body>
+</html>
